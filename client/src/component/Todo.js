@@ -83,10 +83,11 @@ const Todo = () => {
 
 
     return (
+        <>
         <div className='mt-10 mx-10'>
             <div className='sm:flex'>
                 {/* Student Details */}
-                <div className='sm:w-full sm:max-w-sm h-[400px] border-2'>
+                <div className='sm:w-full sm:max-w-sm h-[400px] sm:order-first'>
                     <div className='text-xl font-bold p-2'>
                         <p className='font-extrabold text-3xl mb-10'>DETAILS</p>
 
@@ -94,8 +95,8 @@ const Todo = () => {
                             <p className="leading-relaxed mb-3">Name: {user?.name.toUpperCase()}</p>
                             <p className="leading-relaxed mb-3">Class: {user?.studentclass}</p>
                             <p className="leading-relaxed mb-3">Roll No: {user?.roll}</p>
+                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{user?.email}</h1>
                             <p className="leading-relaxed mb-3">({user?.address})</p>
-                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">Name: {user?.email}</h1>
                             <div className="flex items-center flex-wrap ">
                                 <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto  leading-none text-sm pr-3 py-1">
                                     <button onClick={(e) => handleDeleteStudent(user._id)} className='bg-slate-900 hover:bg-slate-600 rounded text-white font-bold p-2'>Delete Student</button>
@@ -174,6 +175,9 @@ const Todo = () => {
                 </div>
             </div>
         </div>
+</>
+
+
     );
 };
 

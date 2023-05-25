@@ -18,7 +18,7 @@ const Dashboard = () => {
     },[])
 
     return (
-    <div className='flex flex-wrap'>
+    <div className='flex flex-wrap justify-center'>
     {data && data.map(e =>
         <Card e={e}/>
     )}
