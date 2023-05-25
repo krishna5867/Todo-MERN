@@ -4,7 +4,7 @@ import Card from './Card'
 
 const Dashboard = () => {
     const [data,setData] = useState();
-    // console.log(data);
+    console.log(data);
 
     const fetchStudents = async () => {
         const res = await axios.get('/getStudents');
