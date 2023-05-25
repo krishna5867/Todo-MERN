@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -9,7 +9,8 @@ const Todo = () => {
     const [data, setData] = useState();
     const [todo, setTodo] = useState([]);
     const [editTaskId, setEditTaskId] = useState('');
-    const [user,setUser] = useState()
+    const [user, setUser] = useState()
+    const navigate = useNavigate()
 
     const createTodo = async () => {
         const res = await axios.post(`/createTodo/${id}`, { task });
@@ -58,6 +59,23 @@ const Todo = () => {
         }
     };
 
+    // Delete User
+    const handleDeleteStudent = async (id) => {
+        try {
+            const confirmed = window.confirm('Are you sure you want to delete this user?');
+            if (!confirmed) {
+                return; 
+            }
+            const res = await axios.delete(`/deleteStudent/${id}`);
+            if (res.data.success === true) {
+                navigate('/');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     useEffect(() => {
         fetchTodo();
     }, [task]);
@@ -72,7 +90,7 @@ const Todo = () => {
                     <div className='text-xl font-bold p-2'>
                         <p className='font-extrabold text-3xl mb-10'>DETAILS</p>
 
-                    <div className="p-6 h-full border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md hover:shadow-lg">
+                        <div className="p-6 h-full border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md hover:shadow-lg">
                             <p className="leading-relaxed mb-3">Name: {user?.name.toUpperCase()}</p>
                             <p className="leading-relaxed mb-3">Class: {user?.studentclass}</p>
                             <p className="leading-relaxed mb-3">Roll No: {user?.roll}</p>
@@ -80,11 +98,15 @@ const Todo = () => {
                             <h1 className="title-font text-lg font-medium text-gray-900 mb-3">Name: {user?.email}</h1>
                             <div className="flex items-center flex-wrap ">
                                 <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto  leading-none text-sm pr-3 py-1">
+                                    <button onClick={(e) => handleDeleteStudent(user._id)} className='bg-slate-900 hover:bg-slate-600 rounded text-white font-bold p-2'>Delete Student</button>
+                                </span>
+                                <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto  leading-none text-sm pr-3 py-1">
                                     {moment(user?.createdAt).format('MMMM Do YYYY')}
-                                </span>                              
+                                </span>
                             </div>
                         </div>
-                    
+
+
                     </div>
                 </div>
                 {/* Create Todo */}
@@ -114,37 +136,37 @@ const Todo = () => {
                     <div className='sm:w-full sm:max-w-lg sm:ms-20 mt-10 h-[400px]'>
                         <>
                             {todo.map((e) => (
-                                    <div className='p-3 m-2 border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md hover:shadow-lg'>
+                                <div className='p-3 m-2 border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md hover:shadow-lg'>
                                     {/* <div className='border-2 border-gray-200 border-opacity-60 py-3 m-2 px-6'> */}
-                                <div key={e._id} className='flex justify-between'>
-                                    <div>{e.main}</div>
-                                    {editTaskId === e._id ? (
-                                        <div>
-                                            <button onClick={handleUpdateTask}
-                                                className='ms-2 bg-green-600 hover:bg-green-500 text-white p-1 rounded font-bold'>
-                                                Update
-                                            </button>
-                                            <button
-                                                onClick={() => setEditTaskId('')}
-                                                className='ms-2 bg-red-600 hover:bg-red-500 text-white p-1 rounded font-bold'>
+                                    <div key={e._id} className='flex justify-between'>
+                                        <div>{e.main}</div>
+                                        {editTaskId === e._id ? (
+                                            <div>
+                                                <button onClick={handleUpdateTask}
+                                                    className='ms-2 bg-green-600 hover:bg-green-500 text-white p-1 rounded font-bold'>
+                                                    Update
+                                                </button>
+                                                <button
+                                                    onClick={() => setEditTaskId('')}
+                                                    className='ms-2 bg-red-600 hover:bg-red-500 text-white p-1 rounded font-bold'>
                                                     Cancel
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <button
-                                                onClick={() => handleEditTask(e._id)}
-                                                className='ms-2 bg-green-600 hover:bg-green-500 text-white p-1 rounded font-bold'>
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <button
+                                                    onClick={() => handleEditTask(e._id)}
+                                                    className='ms-2 bg-green-600 hover:bg-green-500 text-white p-1 rounded font-bold'>
                                                     Edit
-                                            </button>
-                                            <button
-                                                onClick={() => handleDeleteTask(e._id)}
-                                                className='ms-2 bg-red-600 hover:bg-red-500 text-white p-1 rounded font-bold'>
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteTask(e._id)}
+                                                    className='ms-2 bg-red-600 hover:bg-red-500 text-white p-1 rounded font-bold'>
                                                     Delete
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </>

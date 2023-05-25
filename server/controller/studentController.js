@@ -99,3 +99,19 @@ exports.searchStudent = async (req, res) => {
     }
 };
 
+exports.deleteStudent = async(req,res)=> {
+    try {
+        const {id} = req.params;
+        const student = await Student.findByIdAndDelete(id)
+        if(student){
+            res.status(200).json({
+                success: true,
+                message: "User Deleted Successfully",
+                student
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
