@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const Todo = require('../model/todoModel')
 
 const studentSchema = new mongoose.Schema({
     name: {

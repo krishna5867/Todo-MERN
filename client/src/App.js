@@ -15,7 +15,7 @@ function App() {
                     <Route path="/" element={<Dashboard />}></Route>
                     <Route path="/add-student" element={<Form />}></Route>
                     <Route path="/add-todo/:id" element={<Todo />}></Route>
-                    <Route path="/search/:query" element={<Search />}></Route>
+                    <Route path="/searchStudent/:query" element={<Search />}></Route>
                 </Routes>
             </BrowserRouter>
         </div>

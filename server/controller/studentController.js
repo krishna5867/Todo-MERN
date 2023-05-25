@@ -77,4 +77,25 @@ exports.getStudent = async (req, res) => {
     }
 }
 
+// Search 
+exports.searchStudent = async (req, res) => {
+    const { query } = req.params;
+
+    try {
+        const regex = new RegExp(query, 'i');
+        const results = await Student.find({
+            $or: [
+                { name: regex },
+                { email: regex },
+                { address: regex },
+                { studentclass: regex },
+                { todo: { $elemMatch: { main: regex } } }
+            ]
+        });
+
+        res.json(results);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 

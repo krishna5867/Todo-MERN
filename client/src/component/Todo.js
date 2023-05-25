@@ -72,8 +72,8 @@ const Todo = () => {
                     <div className='text-xl font-bold p-2'>
                         <p className='font-extrabold text-3xl mb-10'>DETAILS</p>
 
-                    <div className="p-6">
-                            <p className="leading-relaxed mb-3">Class: {user?.name}</p>
+                    <div className="p-6 h-full border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md hover:shadow-lg">
+                            <p className="leading-relaxed mb-3">Name: {user?.name.toUpperCase()}</p>
                             <p className="leading-relaxed mb-3">Class: {user?.studentclass}</p>
                             <p className="leading-relaxed mb-3">Roll No: {user?.roll}</p>
                             <p className="leading-relaxed mb-3">({user?.address})</p>
@@ -114,7 +114,8 @@ const Todo = () => {
                     <div className='sm:w-full sm:max-w-lg sm:ms-20 mt-10 h-[400px]'>
                         <>
                             {todo.map((e) => (
-                                    <div className='border-2 border-gray-200 border-opacity-60 py-3 m-2 px-6'>
+                                    <div className='p-3 m-2 border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md hover:shadow-lg'>
+                                    {/* <div className='border-2 border-gray-200 border-opacity-60 py-3 m-2 px-6'> */}
                                 <div key={e._id} className='flex justify-between'>
                                     <div>{e.main}</div>
                                     {editTaskId === e._id ? (
